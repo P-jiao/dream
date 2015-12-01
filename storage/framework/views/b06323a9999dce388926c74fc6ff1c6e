@@ -1,0 +1,32 @@
+
+<html>
+    <head>
+        <title>Network</title>
+    </head>
+    <body>
+    <div class=" header" style="background-color: blue">
+    <ul>
+    <li>首页</li>
+    <li>产品</li>
+    <li>帮助</li>
+    </ul>
+    </div>
+
+        <div class="container">
+           <table><tr>
+           <th>ID</th>
+           <th>Name</th>
+           <th>Price</th>
+           </tr></table>
+           <tr>
+           <td><?php  echo"$id"  ?></td>
+           <td><?php  echo"$name"  ?></td>
+           <td><?php  echo"$price"  ?></td>
+           </tr>
+        </div>
+<hr/>
+        <div class="footer" style="background-color: red">
+       abc @ 2015-2025
+        </div>
+    </body>
+</html>

@@ -1,0 +1,8 @@
+<html>
+<h1>this my web </h1>
+<p><?php echo e($age); ?></p>
+<p><?php echo $age; ?></p>
+<p><?php echo $test; ?></p>
+<p><?php echo $id; ?></p>
+
+</html>

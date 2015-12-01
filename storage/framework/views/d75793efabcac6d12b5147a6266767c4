@@ -1,0 +1,59 @@
+
+<html>
+    <head>
+        <title>列表页面</title>
+        <style>
+        .header{
+        background-color:darkred;
+        }
+        .li{
+        float:left;
+        }
+        ul{
+        list-style: none;
+        }
+        .container{
+        background-color: deepskyblue;
+        }
+        .footer{
+        background-color: greenyellow;
+        }
+        </style>
+    </head>
+    <body>
+    <div class=" header">
+    <ul>
+    <li class="li">首页</li>
+    <li class="li">产品</li>
+    <li>帮助</li>
+    </ul>
+    </div>
+        <div class="container">
+           <table>
+           <tr>
+           <th>NO.</th>
+           <th>Name</th>
+           <th>Price</th>
+           <th>Number</th>
+           <th>Operation</th>
+           </tr>
+           <?php foreach($products as $p): ?>
+           <tr>
+           <td><?php echo e($p->id); ?></td>
+           <td><?php echo e($p->name); ?></td>
+           <td><?php echo e($p->price); ?></td>
+           <td><?php echo e($p->number); ?></td>
+           <td><a href="/product/show/<?php echo e($p->id); ?>">Show</a></td>
+           <td><a href="/product/edit/<?php echo e($p->id); ?>">Edit</a></td>
+           <td><a href="/product/delete/<?php echo e($p->id); ?>">Delete</a> </td>
+           </tr>
+           <?php endforeach; ?>
+           </table>
+           <a href="/product/edit">Create</a>
+        </div>
+<hr/>
+        <div class="footer">
+       Copy Right @ 2015-2025
+        </div>
+    </body>
+</html>

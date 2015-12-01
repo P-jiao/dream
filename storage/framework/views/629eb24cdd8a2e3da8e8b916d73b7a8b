@@ -1,0 +1,31 @@
+
+<html>
+    <head>
+        <title>Network - <?php echo $__env->yieldContent('welcome to my web!!'); ?></title>
+        <style>
+        .header{
+        background-color: darkred;
+        }
+        .footer{
+        background-color: greenyellow;
+        }
+        </style>
+    </head>
+    <body>
+    <div class=" header">
+    <ul>
+    <li>首页</li>
+    <li>产品</li>
+    <li>帮助</li>
+    </ul>
+    </div>
+
+        <div class="container">
+            <?php echo $__env->yieldContent('content'); ?>
+        </div>
+<hr/>
+        <div class="footer">
+       <?php echo $__env->yieldContent('footer'); ?>
+        </div>
+    </body>
+</html>

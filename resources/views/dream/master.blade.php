@@ -4,13 +4,14 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <title>System</title>
+    <title>梦想云——@yield('title')</title>
     <meta name="description" content="Admin Platform" />
     <meta name="keywords" content="Admin Platform" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" type="text/css" class="ui" href="/semantic/semantic.min.css">
     <script src="/javascript/jquery-2.1.1.min.js"></script>
     <script src="/semantic/semantic.min.js"></script>
+    <link rel="stylesheet" href="/css/menu.css" type="text/css" media="screen" />
 <style>
 body{
   background-color: #ffffff;
@@ -20,10 +21,8 @@ body.pushable{
 }
 
 .dropdown{
-z-index: 9999;
+    z-index: 9999;
 }
-
-
 .top.menu{
     background-color: #fff !important;
     height: 64px;
@@ -34,10 +33,10 @@ z-index: 9999;
     padding-top: 10px;
 }
 .top.menu .launch{
-  margin:10px 0 0 10px;
+     margin:10px 0 0 10px;
 }
 .left.sidebar{
-  top:64px;
+    top:64px;
 }
 .top.menu .userinfo{
     padding:5px !important;
@@ -63,14 +62,14 @@ z-index: 9999;
   margin-right:85px ;
 }
 .top_title{
-font-family: 'Microsoft YaHei', 'SimSun', 'Arial';
-font-size: 30px;
-color: #fff;
-padding-top: 21px;
-padding-left: 50px;
+    font-family: 'Microsoft YaHei', 'SimSun', 'Arial';
+    font-size: 30px;
+    color: #fff;
+    padding-top: 21px;
+    padding-left: 50px;
 }
 .box_controll{
- box-shadow: 0 0px 0px 0 rgba(34,36,38,.15),0 0 0 0px rgba(34,36,38,.15)!important;
+    box-shadow: 0 0px 0px 0 rgba(34,36,38,.15),0 0 0 0px rgba(34,36,38,.15)!important;
 }
 
 .ui.header{
@@ -87,7 +86,15 @@ padding-left: 50px;
    color: #fff;
    margin-top: 12px;
 }
-
+.massage{
+    color: red;
+    font-family: "Microsoft YaHei", "SimHei", "SimSun";
+    padding-top: 50px;
+    padding-left: 200px;
+    font-size: 18px;
+    line-height: 10px;
+}
+@yield('style')
 </style>
 <script>
     $(function(){
@@ -124,14 +131,17 @@ padding-left: 50px;
     $('.dropdown').dropdown();
 
 
-$('.ui.accordion')
-  .accordion();
- });
+    $('.ui.accordion')
+      .accordion();
+    });
+    $('.ui.modal')
+    .modal('show')
+    ;
 </script>
 </head>
 <body>
 <div  class="ui top fixed secondary menu" style="background-color: #00719b !important;">
-
+    <?php session_start(); ?>
     <a class="item launch">
         <i class="ui big content icon"></i>
     </a>
@@ -143,18 +153,22 @@ $('.ui.accordion')
     <div class="right  menu">
         <div class="ui header userinfo">
             <img class="ui circular image" src="/images/default_user.jpg">
-            <div class="content">Sara</div>
+            <div class="content">
+                 <?php
+                     if($_SESSION['username']){
+                        echo $_SESSION['username'];
+                     }else{
+                        echo "请登录";
+                     }
+                ?>
+            </div>
         </div>
 
         <div class="ui popup ">
             <div class="ui teal inverted vertical icon menu">
-                <a class="icon item" href="/admin/user/profile/1"><i class="user icon"></i>User Profile</a>
-                <a class="icon item" href="/user/logout"><i class="key icon"></i>Log out</a>
+                <a class="icon item" href="/admin/user/profile/1"><i class="user icon"></i>用户信息</a>
+                <a class="icon item" href="/auth/logout"><i class="key icon"></i>退出</a>
             </div>
-        </div>
-
-        <div class="ui header">
-            <a href="#" class=""> <i class="big  add user icon"></i><div class="regist">注册</div> </a>
         </div>
     </div>
 </div>
@@ -162,7 +176,7 @@ $('.ui.accordion')
 
 <div class="ui left  vertical labeled icon sidebar menu">
 
-         <div class="ui left teal pointing  link item" style="width: 160px;">
+         <div class="ui left teal pointing  link item" style="width: 170px;">
                   <div class="ui styled accordion box_controll" >
                           <div class="title">
                              {{-- <i class="dropdown icon"></i>--}}
@@ -176,11 +190,11 @@ $('.ui.accordion')
                                       机构人员
                                   </div>
                                   <div class="content">
-                                     <p><a href="#">部门设置</a></p>
-                                     <p><a href="#">人员档案</a></p>
-                                     <p><a href="#">人员类别</a></p>
-                                     <p><a href="#">职称</a></p>
-                                     <p><a href="#">人员属性</a></p>
+                                     <p><a href="/dream/setting"><i class="list layout icon"></i>部门设置</a></p>
+                                     <p><a href="/dream/file"><i class="newspaper icon"></i>人员档案</a></p>
+                                     <p><a href="/dream/category"><i class="sitemap icon"></i>人员类别</a></p>
+                                     <p><a href="/dream/title"><i class="student icon"></i>职称</a></p>
+                                     <p><a href="/dream/property"><i class="sitemap icon"></i>人员属性</a></p>
 
                                   </div>
                                   <div class="title">
@@ -188,35 +202,33 @@ $('.ui.accordion')
                                       仓库存货
                                   </div>
                                   <div class="content">
-                                     <p><a href="#">仓库设置</a></p>
-                                     <p><a href="#">存货档案</a></p>
-                                     <p><a href="#">单位换算</a></p>
-                                     <p><a href="#">存货分类</a></p>
+                                     <p><a href="/dream/setup"><i class="home icon"></i>仓库设置</a></p>
+                                     <p><a href="/dream/conversion"><i class="leaf icon"></i>单位换算</a></p>
+                                     <p><a href="/dream/inventory"><i class="sitemap icon"></i>存货分类</a></p>
                                   </div>
                                   <div class="title">
                                       {{--<i class="dropdown icon"></i>--}}
                                       往来单位
                                   </div>
                                   <div class="content">
-                                     <p><a href="#">往来单位</a></p>
-                                     <p><a href="#">单位分类</a></p>
-                                     <p><a href="#">地区设置</a></p>
+                                     <p><a href="/dream/contact"><i class="retweet icon"></i>往来单位</a></p>
+                                     <p><a href="/dream/classify"><i class="sitemap icon"></i>单位分类</a></p>
+                                     <p><a href="/dream/locale"><i class="leaf icon"></i>地区设置</a></p>
                                   </div>
                                   <div class="title">
                                         {{-- <i class="dropdown icon"></i>--}}
                                        其他设置
                                   </div>
                                   <div class="content">
-                                      <p><a href="#">发运方式</a></p>
-                                      <p><a href="#">常用词汇</a></p>
+                                      <p><a href="/dream/shipping"><i class="shipping icon"></i>发运方式</a></p>
+                                      <p><a href="/dream/vocabulary"><i class="leaf icon"></i>常用词汇</a></p>
                                   </div>
                               </div>
                           </div>
-                          </div>
+                  </div>
+         </div>
 
-</div>
-
-         <div class="ui left teal pointing  link item" style="width: 160px;">
+         <div class="ui left teal pointing  link item" style="width: 170px;">
                   <div class="ui styled accordion box_controll" >
                           <div class="title">
                              {{-- <i class="dropdown icon"></i>--}}
@@ -230,7 +242,7 @@ $('.ui.accordion')
                                       设置
                                   </div>
                                   <div class="content">
-                                     <p><a href="#">采购类型</a></p>
+                                     <p><a href="/dream/type"><i class="sitemap icon"></i>采购类型</a></p>
 
                                   </div>
                                   <div class="title">
@@ -238,16 +250,14 @@ $('.ui.accordion')
                                       采购业务
                                   </div>
                                   <div class="content">
-                                     <p><a href="#">进货单</a></p>
+                                     <p><a href="/dream/basket"><i class="file text icon"></i>进货单</a></p>
                                   </div>
-
+                              </div>
                           </div>
-                          </div>
+                  </div>
+         </div>
 
-</div>
-        </div>
-
-         <div class="ui left teal pointing  link item" style="width: 160px;">
+         <div class="ui left teal pointing  link item" style="width: 170px;">
                    <div class="ui styled accordion box_controll" >
                           <div class="title">
                              {{-- <i class="dropdown icon"></i>--}}
@@ -261,7 +271,7 @@ $('.ui.accordion')
                                           设置
                                      </div>
                                      <div class="content">
-                                         <p><a href="#">销售类型</a></p>
+                                         <p><a href="/dream/stype"><i class="sitemap icon"></i>销售类型</a></p>
 
                                      </div>
                                      <div class="title">
@@ -269,133 +279,20 @@ $('.ui.accordion')
                                           销售业务
                                      </div>
                                      <div class="content">
-                                     <p><a href="#">销售单</a></p>
+                                     <p><a href="/dream/sorder"><i class="file text icon"></i>销售单</a></p>
                                      </div>
-
+                                 </div>
                           </div>
                    </div>
-
-                   </div>
          </div>
-
-         <div class="ui left teal pointing  link item" style="width: 160px;">
-                    <div class="ui styled accordion box_controll" >
-                           <div class="title">
-                              {{-- <i class="dropdown icon"></i>--}}
-                               <i class="cubes icon"></i>
-                              库存管理
-                           </div>
-                           <div class="content">
-                                  <div class="accordion box_controll">
-                                      <div class="title">
-                                          {{-- <i class="dropdown icon"></i>--}}
-                                           设置
-                                      </div>
-                                      <div class="content">
-                                          <p><a href="#">出入库类别</a></p>
-                                          <p><a href="#">期初库存</a></p>
-
-                                      </div>
-                                      <div class="title">
-                                         {{--  <i class="dropdown icon"></i>--}}
-                                           业务处理
-                                      </div>
-                                      <div class="content">
-                                      <p><a href="#">调拨单</a></p>
-                                      <p><a href="#">盘点单</a></p>
-                                      <p><a href="#">其他入库单</a></p>
-                                      <p><a href="#">其他出库单</a></p>
-                                      <p><a href="#">成本调整单</a></p>
-                                  </div>
-
-                           </div>
-                    </div>
-
-                    </div>
-         </div>
-
-         <div class="ui left teal pointing  link item" style="width: 160px;">
-                           <div class="ui styled accordion box_controll" >
-                                   <div class="title">
-                                                       {{-- <i class="dropdown icon"></i>--}}
-                                                <i class="file excel outline icon"></i>
-                                                   报表查询
-                                           </div>
-                                                    <div class="content">
-                                                           <div class="accordion box_controll">
-                                                               <div class="title">
-                                                                   {{-- <i class="dropdown icon"></i>--}}
-                                                                    采购报表
-                                                               </div>
-                                                               <div class="content">
-                                                                   <p><a href="#">采购进货明细表</a></p>
-                                                                   <p><a href="#">采购统计表</a></p>
-                                                                   <p><a href="#">采购价格分析</a></p>
-                                                               </div>
-                                                               <div class="title">
-                                                                  {{--  <i class="dropdown icon"></i>--}}
-                                                                    销售报表
-                                                              </div>
-                                                               <div class="content">
-                                                               <p><a href="#">销售明细表</a></p>
-                                                               <p><a href="#">销售统计表</a></p>
-                                                               <p><a href="#">销售毛利统计表</a></p>
-                                                              </div>
-                                                              <div class="title">
-                                                            {{--  <i class="dropdown icon"></i>--}}
-                                                                库存报表
-                                                               </div>
-                                                             <div class="content">
-                                                             <p><a href="#">库存余额表</a></p>
-                                                             <p><a href="#">收发明细表</a></p>
-                                                             <p><a href="#">收发存统计表</a></p>
-                                                             <p><a href="#">负库存量存货查询</a></p>
-                                                            </div>
-
-                                           </div>
-                                   </div>
-
-                           </div>
-                  </div>
-
-         <div class="ui left teal pointing  link item" style="width: 160px;">
-                            <div class="ui styled accordion box_controll" >
-                                    <div class="title">
-                                                        {{-- <i class="dropdown icon"></i>--}}
-                                                 <i class="settings icon"></i>
-                                                    系统管理
-                                            </div>
-                                                     <div class="content">
-                                                            <div class="accordion box_controll">
-                                                                <div class="title">
-                                                                    {{-- <i class="dropdown icon"></i>--}}
-                                                                     <a href="#">系统参数</a>
-                                                                </div>
-
-                                                                <div class="title">
-                                                                   {{--  <i class="dropdown icon"></i>--}}
-                                                                     <a href="#"> 用户日志</a>
-                                                               </div>
-
-                                                               <div class="title">
-                                                             {{--  <i class="dropdown icon"></i>--}}
-                                                                 系统配置
-                                                                </div>
-                                                              <div class="content">
-                                                              <p><a href="#">编码规则</a></p>
-                                                             </div>
-
-                                            </div>
-                                    </div>
-
-                            </div>
-                   </div>
-
 </div>
 
 
 <div id="content" class="pusher">
-@yield('content')
+                  @if(Session::has('message'))
+                 <p class="massage">{{Session::get('message')}}</p>
+                 @endif
+  @yield('content')
 </div>
 
 
